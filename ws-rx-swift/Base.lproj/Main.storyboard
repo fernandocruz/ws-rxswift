@@ -64,11 +64,19 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIL-gf-Sti">
+                                <rect key="frame" x="20" y="354" width="335" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="y8l-PG-x3K" firstAttribute="width" secondItem="o0a-DQ-c52" secondAttribute="width" id="1mv-Ui-Atk"/>
                             <constraint firstItem="ZXc-YB-Jsu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2QE-Xk-c9C"/>
+                            <constraint firstItem="TIL-gf-Sti" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="45v-jg-tze"/>
+                            <constraint firstItem="TIL-gf-Sti" firstAttribute="top" secondItem="y8l-PG-x3K" secondAttribute="bottom" constant="51" id="5VP-gA-zxx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cg5-iO-S08" secondAttribute="trailing" symbolic="YES" id="6LY-vR-4A8"/>
                             <constraint firstItem="w3t-3x-MSI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="DjB-cL-TWW"/>
                             <constraint firstItem="cg5-iO-S08" firstAttribute="leading" secondItem="ZXc-YB-Jsu" secondAttribute="leading" id="L3A-dM-CPv"/>
@@ -79,6 +87,7 @@
                             <constraint firstItem="ZXc-YB-Jsu" firstAttribute="top" secondItem="cg5-iO-S08" secondAttribute="bottom" constant="8" id="ZOI-hk-oh6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rLD-N4-CPm" secondAttribute="trailing" symbolic="YES" id="ZUX-21-Jgz"/>
                             <constraint firstItem="w3t-3x-MSI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="36" id="g4e-lR-OJ8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TIL-gf-Sti" secondAttribute="trailing" constant="20" id="hVh-rt-24C"/>
                             <constraint firstItem="ZXc-YB-Jsu" firstAttribute="top" secondItem="o0a-DQ-c52" secondAttribute="bottom" constant="49" id="jpv-Ti-FFP"/>
                             <constraint firstItem="o0a-DQ-c52" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="nwI-yP-avZ"/>
                             <constraint firstItem="ZXc-YB-Jsu" firstAttribute="width" secondItem="o0a-DQ-c52" secondAttribute="width" id="oX2-6y-o1g"/>
@@ -89,6 +98,7 @@
                     </view>
                     <connections>
                         <outlet property="fromCurrency" destination="o0a-DQ-c52" id="ZHm-Lr-Znp"/>
+                        <outlet property="resultLabel" destination="TIL-gf-Sti" id="WEL-lf-K5f"/>
                         <outlet property="toCurrency" destination="ZXc-YB-Jsu" id="Cga-gK-9b6"/>
                         <outlet property="topUpButton" destination="y8l-PG-x3K" id="C3Y-t5-KwM"/>
                     </connections>
