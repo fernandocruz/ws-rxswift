@@ -10,8 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+struct Transfer {
+    let value: String
+}
+
 class ViewController: UIViewController {
     let disposeBag = DisposeBag()
+    let transferSubject = PublishSubject<Transfer>()
     
     @IBOutlet weak var fromCurrency: UITextField!
     @IBOutlet weak var toCurrency: UITextField!
@@ -29,84 +34,59 @@ class ViewController: UIViewController {
 extension ViewController {
     private func SetupBindings() {
         
-        //MAP
-//        toCurrency.rx.text.asObservable()
-//            .map { text in
-//                return "Número Digitado: \(text ?? "")"
-//            }.debug("TO Currency >>>>>>>")
-//            .subscribe(onNext: { [weak self] text in
-//                self?.resultLabel.text = text
-//            }).disposed(by: disposeBag)
-
-        //FlatMap
-//        fromCurrency.rx.text.asObservable()
-//            .flatMap { text in
-//                return Observable.just("Número Digitado: \(text ?? "")")
-//            }.debug("From Currency >>>>>>")
-//            .subscribe(onNext: { [weak self] text in
-//                self?.resultLabel.text = text
-//            }).disposed(by: disposeBag)
+        let tapEvent = topUpButton.rx.tap.asObservable().share()
         
-        //Combine
-//        Observable.combineLatest(toCurrency.rx.text.orEmpty.asObservable(),
-//                                 fromCurrency.rx.text.orEmpty.asObservable()) { toCurrency, fromCurrency in
-//            return toCurrency != fromCurrency ? "Números Diferentes" : "Números Iguais"
-//        }.debug("Combine >>>>>>>>>")
-//        .subscribe(onNext: { [weak self] text in
-//            self?.resultLabel.text = text
+        tapEvent
+            .withLatestFrom(fromCurrency.rx.text.orEmpty.asObservable())
+            .subscribe(onNext: { [weak self] amount in
+                self?.transferSubject.onNext(Transfer(value: amount))
+            }).disposed(by: disposeBag)
+        
+        tapEvent
+            .withLatestFrom(fromCurrency.rx.text.orEmpty.asObservable())
+            .flatMap { amount in
+                self.getTransferSingle(amount: amount)
+            }.debug("Single >>>>>>>")
+            .subscribe(onNext: { transfer in
+                print("Single emitiu: \(transfer.value)")
+            }).disposed(by: disposeBag)
+        
+        
+//        getTransferSingle()
+//            .debug("Single >>>>>>>>>>>>")
+//            .subscribe(onSuccess: { transfer in
+//                print("Single emitiu: \(transfer.value)")
 //        }).disposed(by: disposeBag)
         
-        //Zip
-//        Observable.zip(toCurrency.rx.text.asObservable(),
-//                       fromCurrency.rx.text.asObservable()) { toCurrency, fromCurrency in
-//            return " To: \(toCurrency ?? "") - From: \(fromCurrency ?? "")"
-//        }.debug("ZIP >>>>>>>>>")
-//        .subscribe(onNext: { [weak self] text in
-//            self?.resultLabel.text = text
-//        }).disposed(by: disposeBag)
+        getTransferObservable()
+            .debug("Observable >>>>>>>>>>>>")
+            .subscribe(onNext: { transfer in
+                print("Observable emitiu: \(transfer.value)")
+            }).disposed(by: disposeBag)
         
-//        Observable.of(fromCurrency.rx.text.orEmpty.asObservable(),
-//                      toCurrency.rx.text.orEmpty.asObservable())
-//            .switchLatest().debug("SwitchLatest")
-//            .subscribe(onNext: { [weak self] text in
-//                self?.resultLabel.text = text
-//            }).disposed(by: disposeBag)
+        getTransferDriver()
+            .debug("Driver >>>>>>>>>>>>>")
+            .drive(onNext: { transfer in
+                print("Driver emitiu: \(transfer.value)")
+        }).disposed(by: disposeBag)
         
-//        Observable.of(toCurrency.rx.text.orEmpty.asObservable(),
-//                      fromCurrency.rx.text.orEmpty.asObservable())
-//            .switchLatest().debug("SwitchLatest >>>>>>>>>")
-//            .subscribe(onNext: { [weak self] text in
-//                self?.resultLabel.text = text
-//            }).disposed(by: disposeBag)
-        
-        //Merge
-//        Observable.merge(fromCurrency.rx.text.orEmpty.asObservable(),
-//                         toCurrency.rx.text.orEmpty.asObservable())
-//            .debug("Merge >>>>>>>>>")
-//            .subscribe(onNext: { [weak self] text in
-//                self?.resultLabel.text = text
-//            }).disposed(by: disposeBag)
-
-        //Filter
-//        fromCurrency.rx.text.orEmpty.asObservable()
-//            .filter { !$0.isEmpty }
-//            .map { text -> Double in
-//                    let value  = text.replacingOccurrences(of: ".", with: "")
-//                        .replacingOccurrences(of: ",", with: ".")
-//                    return Double(value)!
-//            }
-//            .filter { $0 > 100.00 }.debug("From Currency >>>>>>")
-//            .subscribe(onNext: { [weak self] value in
-//                self?.resultLabel.text = "Valor: \(value) maior que o permitido"
-//            }).disposed(by: disposeBag)
-        
-        //Debounce
-//        fromCurrency.rx.text.orEmpty.asObservable()
-//            .debounce(3, scheduler: MainScheduler.instance)
-//            .debug("Debounce >>>>>>>>>")
-//            .subscribe(onNext: { [weak self] text in
-//                self?.resultLabel.text = text
-//            }).disposed(by: disposeBag)
+    }
+    
+    
+    func getTransferSingle(amount: String) -> Single<Transfer> {
+        return transferSubject.asSingle()
+    }
+    
+//    func getTransferSingle(amount: String) -> Single<Transfer> {
+//        return Single.just(Transfer(value: amount))
+//    }
+    
+    func getTransferObservable() -> Observable<Transfer> {
+        return transferSubject.asObservable()
+    }
+    
+    func getTransferDriver() -> Driver<Transfer> {
+        return transferSubject.asDriver(onErrorJustReturn: Transfer(value: "0,00"))
     }
 }
 
