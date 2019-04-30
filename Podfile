@@ -8,6 +8,7 @@ target 'ws-rx-swift' do
   # Pods for ws-rx-swift
     pod 'RxSwift'
     pod 'RxCocoa'
+    pod 'RxSwiftUtilities'
 
   target 'ws-rx-swiftTests' do
     inherit! :search_paths

@@ -16,6 +16,8 @@
 		1154D9932277DB9400941412 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154D9922277DB9400941412 /* String+Utils.swift */; };
 		1154D9952277DBF100941412 /* NumberFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154D9942277DBF100941412 /* NumberFormat.swift */; };
 		1154D9972278B54E00941412 /* TransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154D9962278B54E00941412 /* TransferViewModel.swift */; };
+		1154D99B2278D5BA00941412 /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154D99A2278D5BA00941412 /* TransferService.swift */; };
+		1154D99D2278EB6500941412 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154D99C2278EB6500941412 /* UIColor+Utils.swift */; };
 		123D3D43243B40E2936EFD36 /* Pods_ws_rx_swiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E832198FB8CDD25B6F0237 /* Pods_ws_rx_swiftTests.framework */; };
 		F78BEF62FB464FA422A47302 /* Pods_ws_rx_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84795BC73DF55C754955709F /* Pods_ws_rx_swift.framework */; };
 /* End PBXBuildFile section */
@@ -44,6 +46,8 @@
 		1154D9922277DB9400941412 /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		1154D9942277DBF100941412 /* NumberFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormat.swift; sourceTree = "<group>"; };
 		1154D9962278B54E00941412 /* TransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewModel.swift; sourceTree = "<group>"; };
+		1154D99A2278D5BA00941412 /* TransferService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
+		1154D99C2278EB6500941412 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		40EFC8C439E28020DEEB0998 /* Pods-ws-rx-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ws-rx-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-ws-rx-swift/Pods-ws-rx-swift.release.xcconfig"; sourceTree = "<group>"; };
 		4959A9467944855F50C7E72B /* Pods-ws-rx-swiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ws-rx-swiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ws-rx-swiftTests/Pods-ws-rx-swiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		84795BC73DF55C754955709F /* Pods_ws_rx_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ws_rx_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +99,7 @@
 		1154D96C2277A32D00941412 /* ws-rx-swift */ = {
 			isa = PBXGroup;
 			children = (
+				1154D99A2278D5BA00941412 /* TransferService.swift */,
 				1154D96D2277A32D00941412 /* AppDelegate.swift */,
 				1154D96F2277A32D00941412 /* ViewController.swift */,
 				1154D9712277A32D00941412 /* Main.storyboard */,
@@ -104,6 +109,7 @@
 				1154D9922277DB9400941412 /* String+Utils.swift */,
 				1154D9942277DBF100941412 /* NumberFormat.swift */,
 				1154D9962278B54E00941412 /* TransferViewModel.swift */,
+				1154D99C2278EB6500941412 /* UIColor+Utils.swift */,
 			);
 			path = "ws-rx-swift";
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-ws-rx-swift/Pods-ws-rx-swift-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwiftUtilities/RxSwiftUtilities.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -255,6 +262,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftUtilities.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -312,11 +320,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1154D99B2278D5BA00941412 /* TransferService.swift in Sources */,
 				1154D9702277A32D00941412 /* ViewController.swift in Sources */,
 				1154D96E2277A32D00941412 /* AppDelegate.swift in Sources */,
 				1154D9932277DB9400941412 /* String+Utils.swift in Sources */,
 				1154D9952277DBF100941412 /* NumberFormat.swift in Sources */,
 				1154D9972278B54E00941412 /* TransferViewModel.swift in Sources */,
+				1154D99D2278EB6500941412 /* UIColor+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
