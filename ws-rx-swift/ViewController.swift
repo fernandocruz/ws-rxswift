@@ -15,87 +15,43 @@ struct Transfer {
 }
 
 class ViewController: UIViewController {
-    let disposeBag = DisposeBag()
-    let transferSubject = PublishSubject<Transfer>()
     
     @IBOutlet weak var fromCurrency: UITextField!
     @IBOutlet weak var toCurrency: UITextField!
     @IBOutlet weak var topUpButton: UIButton!
     @IBOutlet weak var resultLabel: UILabel!
     
+    let disposeBag = DisposeBag()
+    let transferSubject = PublishSubject<Transfer>()
+    var viewModel: TransferViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextField()
-        SetupBindings()
+        setupViewModel()
+        setupBindings()
     }
 
 }
 
 extension ViewController {
-    private func SetupBindings() {
-        
-        let tapEvent = topUpButton.rx.tap.asObservable().share()
-        
-        tapEvent
-            .withLatestFrom(fromCurrency.rx.text.orEmpty.asObservable())
-            .subscribe(onNext: { [weak self] amount in
-                self?.transferSubject.onNext(Transfer(value: amount))
-            }).disposed(by: disposeBag)
-        
-        tapEvent
-            .withLatestFrom(fromCurrency.rx.text.orEmpty.asObservable())
-            .flatMap { amount in
-                self.getTransferSingle(amount: amount)
-            }.debug("Single >>>>>>>")
-            .subscribe(onNext: { transfer in
-                print("Single emitiu: \(transfer.value)")
-            }).disposed(by: disposeBag)
-        
-        
-//        getTransferSingle()
-//            .debug("Single >>>>>>>>>>>>")
-//            .subscribe(onSuccess: { transfer in
-//                print("Single emitiu: \(transfer.value)")
-//        }).disposed(by: disposeBag)
-        
-        getTransferObservable()
-            .debug("Observable >>>>>>>>>>>>")
-            .subscribe(onNext: { transfer in
-                print("Observable emitiu: \(transfer.value)")
-            }).disposed(by: disposeBag)
-        
-        getTransferDriver()
-            .debug("Driver >>>>>>>>>>>>>")
-            .drive(onNext: { transfer in
-                print("Driver emitiu: \(transfer.value)")
-        }).disposed(by: disposeBag)
-        
+    
+    private func setupViewModel() {
+        self.viewModel = TransferViewModel(input: (toCurrencyEvent: self.toCurrency.rx.text.orEmpty.asDriver(),
+                                                   fromCurrencyEvent: self.fromCurrency.rx.text.orEmpty.asDriver()))
     }
     
-    
-    func getTransferSingle(amount: String) -> Single<Transfer> {
-        return transferSubject.asSingle()
+    private func setupBindings() {
+        self.viewModel.toCurrencyFormmated
+            .drive(self.toCurrency.rx.text)
+            .disposed(by: disposeBag)
+        
+        self.viewModel.fromCurrencyFormmated
+            .drive(self.fromCurrency.rx.text)
+            .disposed(by: disposeBag)
     }
-    
-//    func getTransferSingle(amount: String) -> Single<Transfer> {
-//        return Single.just(Transfer(value: amount))
-//    }
-    
-    func getTransferObservable() -> Observable<Transfer> {
-        return transferSubject.asObservable()
-    }
-    
-    func getTransferDriver() -> Driver<Transfer> {
-        return transferSubject.asDriver(onErrorJustReturn: Transfer(value: "0,00"))
-    }
+
 }
-
-
-
-
-
-
-
 
 extension ViewController {
     
